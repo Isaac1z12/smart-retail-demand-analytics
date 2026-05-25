@@ -1,0 +1,29 @@
+{
+  "feature_count": 52,
+  "model": "Ridge regression implemented with Python standard library",
+  "ridge_alpha": 3.5,
+  "rolling_28_baseline_test_metrics": {
+    "mae": 4.2003,
+    "mape": 0.2694,
+    "r2": 0.7279,
+    "rmse": 5.746,
+    "wape": 0.216
+  },
+  "test_metrics": {
+    "mae": 3.5215,
+    "mape": 0.2415,
+    "r2": 0.8275,
+    "rmse": 4.5749,
+    "wape": 0.1811
+  },
+  "test_rows": 13248,
+  "train_end_date": "2025-09-30",
+  "train_metrics": {
+    "mae": 3.38,
+    "mape": 0.2436,
+    "r2": 0.8096,
+    "rmse": 4.3778,
+    "wape": 0.1833
+  },
+  "training_rows": 87552
+}

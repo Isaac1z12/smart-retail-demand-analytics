@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Rebuildable database artifacts
+data/processed/*.sqlite
+data/processed/*.sqlite-*
+
+# Local editor files
+.idea/
+.vscode/
+*.swp

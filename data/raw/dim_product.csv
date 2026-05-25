@@ -1,0 +1,19 @@
+sku_id,category,brand_tier,unit_cost,list_price,shelf_life_days,base_daily_units
+SKU001,Beverages,Private Label,0.72,1.79,180,24
+SKU002,Beverages,Standard,1.15,2.79,180,18
+SKU003,Beverages,Premium,1.64,3.99,180,12
+SKU004,Bakery,Private Label,0.88,2.49,4,22
+SKU005,Bakery,Standard,1.35,3.49,5,16
+SKU006,Dairy,Private Label,1.02,2.99,14,21
+SKU007,Dairy,Standard,1.48,4.49,14,15
+SKU008,Produce,Standard,0.62,1.99,6,28
+SKU009,Produce,Premium,1.12,3.49,6,18
+SKU010,Pantry,Private Label,0.95,2.69,365,17
+SKU011,Pantry,Standard,1.44,3.99,365,13
+SKU012,Frozen,Standard,1.78,5.49,240,11
+SKU013,Frozen,Premium,2.45,7.49,240,8
+SKU014,Snacks,Private Label,0.58,1.89,240,26
+SKU015,Snacks,Standard,0.92,2.99,240,20
+SKU016,Personal Care,Standard,1.96,5.99,720,7
+SKU017,Personal Care,Premium,3.1,9.99,720,5
+SKU018,Household,Standard,2.2,6.99,720,9

@@ -1,0 +1,19 @@
+category,online_campaign,avg_units_per_store_sku_day,avg_revenue_per_store_sku_day,observation_days
+Bakery,1,29.012,74.97,2585
+Bakery,0,19.984,58.11,9111
+Beverages,1,27.649,64.48,3917
+Beverages,0,20.094,52.39,13627
+Dairy,1,24.276,79.12,435
+Dairy,0,19.675,71.01,11261
+Frozen,1,12.932,74.24,409
+Frozen,0,10.561,66.74,11287
+Household,1,13.207,82.55,1289
+Household,0,9.56,66.76,4559
+Pantry,1,19.904,58.81,1504
+Pantry,0,16.479,53.28,10192
+Personal Care,1,7.828,54.71,1516
+Personal Care,0,6.307,47.79,10180
+Produce,1,31.088,72.75,453
+Produce,0,24.924,64.07,11243
+Snacks,1,35.618,75.53,2582
+Snacks,0,25.513,60.26,9114

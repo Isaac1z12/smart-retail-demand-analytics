@@ -1,0 +1,10 @@
+category,avg_discount,avg_units,discount_unit_covariance,avg_competitor_price_index
+Snacks,0.0241,27.744,0.19772,0.9996
+Bakery,0.0242,21.979,0.18219,1.0007
+Beverages,0.0242,21.781,0.14418,1.0007
+Household,0.0236,10.364,0.06942,1.0018
+Pantry,0.0158,16.92,0.04728,1.0007
+Produce,0.0044,25.163,0.02244,1.0004
+Personal Care,0.0158,6.504,0.02014,1.0007
+Dairy,0.0043,19.846,0.01667,1.0005
+Frozen,0.0042,10.644,0.00876,0.9999

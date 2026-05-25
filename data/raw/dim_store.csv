@@ -1,0 +1,9 @@
+store_id,city,region,store_format,floor_area_sqft,opening_date
+S001,Seattle,West,Urban,18200,2017-04-12
+S002,Austin,South,Suburban,24600,2015-09-08
+S003,Chicago,Midwest,Flagship,38400,2013-02-21
+S004,Denver,Mountain,Suburban,22100,2018-06-17
+S005,Boston,Northeast,Urban,16900,2016-11-03
+S006,Phoenix,Southwest,Express,11800,2020-01-15
+S007,Atlanta,South,Suburban,25500,2014-08-24
+S008,Portland,West,Express,12600,2019-05-05

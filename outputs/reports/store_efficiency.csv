@@ -1,0 +1,9 @@
+store_id,city,region,store_format,revenue,revenue_per_visit,stockout_rate,revenue_per_sqft
+S003,Chicago,Midwest,Flagship,1078417.72,0.0702,0.0717,28.08
+S001,Seattle,West,Urban,930724.79,0.0677,0.0788,51.14
+S005,Boston,Northeast,Urban,887907.96,0.067,0.0844,52.54
+S002,Austin,South,Suburban,804012.75,0.0663,0.0862,32.68
+S007,Atlanta,South,Suburban,778837.34,0.0658,0.082,30.54
+S004,Denver,Mountain,Suburban,711567.45,0.0637,0.0906,32.2
+S008,Portland,West,Express,636321.8,0.0625,0.0949,50.5
+S006,Phoenix,Southwest,Express,588875.57,0.062,0.1012,49.9
