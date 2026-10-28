@@ -28,7 +28,7 @@ def parse_named_queries(sql_text):
 
 def write_rows(path, columns, rows):
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(columns)
         writer.writerows(rows)
 

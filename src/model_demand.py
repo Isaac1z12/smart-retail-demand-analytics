@@ -210,7 +210,7 @@ def write_forecast_sample(rows, actual, predicted, path, limit=600):
         "rolling_28_baseline",
     ]
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for row, actual_value, predicted_value in list(zip(rows, actual, predicted))[:limit]:
             writer.writerow(
