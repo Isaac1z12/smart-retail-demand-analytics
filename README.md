@@ -28,13 +28,15 @@ The theme is retail operations rather than education, while the technical scope 
 |   |-- 00_schema.sql
 |   |-- 01_feature_store.sql
 |   `-- 02_business_questions.sql
-`-- src/
-    |-- generate_data.py
-    |-- build_database.py
-    |-- run_sql_analysis.py
-    |-- model_demand.py
-    |-- svg_charts.py
-    `-- run_pipeline.py
+|-- src/
+|   |-- generate_data.py
+|   |-- build_database.py
+|   |-- run_sql_analysis.py
+|   |-- model_demand.py
+|   |-- svg_charts.py
+|   `-- run_pipeline.py
+`-- tests/
+    `-- test_model_demand.py
 ```
 
 ## Quick Start
@@ -53,6 +55,17 @@ The pipeline will:
 6. Render charts to `outputs/figures/`.
 
 No third-party packages are required.
+
+## Running Tests
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The tests use only the Python standard library and do not need the
+database: they cover the train/test split boundary, the metric
+calculations, the linear solver, small-matrix ridge recovery, and the
+non-negative prediction clip.
 
 ## SQL Analysis Questions
 
