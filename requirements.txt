@@ -1,3 +1,7 @@
 # This project runs with the Python standard library only.
 # Recommended Python version: 3.7+
 
+# Optional: only needed for the benchmark in src/compare_sklearn.py, which
+# compares the hand-written ridge model against scikit-learn. The core
+# pipeline never imports it. Uncomment to install:
+# scikit-learn

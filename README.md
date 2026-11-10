@@ -33,6 +33,7 @@ The theme is retail operations rather than education, while the technical scope 
 |   |-- build_database.py
 |   |-- run_sql_analysis.py
 |   |-- model_demand.py
+|   |-- compare_sklearn.py   # Optional benchmark, needs scikit-learn
 |   |-- svg_charts.py
 |   `-- run_pipeline.py
 `-- tests/
@@ -95,6 +96,26 @@ Generated model outputs:
 - `outputs/reports/forecast_sample.csv`
 - `outputs/figures/actual_vs_predicted.svg`
 - `outputs/figures/forecast_error_by_category.svg`
+
+## Benchmarking Against scikit-learn (Optional)
+
+The core pipeline stays standard-library-only, but the hand-written ridge
+model is benchmarked against scikit-learn in `src/compare_sklearn.py`:
+
+```bash
+pip install scikit-learn
+python src/compare_sklearn.py
+```
+
+It reuses the same time-based split, the same 52 features and the same
+metric definitions, and compares four models on the test window: the
+hand-written ridge regression, sklearn's `Ridge` (same alpha 3.5), a
+random-forest regressor, and the rolling-28 baseline. Results are written to
+`outputs/reports/sklearn_comparison.json` and printed as a table.
+
+On the current synthetic data the hand-written ridge matches sklearn's Ridge
+exactly (test MAE 3.5215, R2 0.8275), while the random forest is a little
+better (test MAE 3.3459, R2 0.8416) at the cost of interpretability.
 
 ## Portfolio Framing
 
