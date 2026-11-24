@@ -1,14 +1,60 @@
 # Smart Retail Demand Analytics
 
-An end-to-end Python + SQL analytics project for a synthetic retail chain. The project builds a reproducible data warehouse in SQLite, answers business questions with SQL, engineers time-aware demand features, and trains an interpretable ridge regression model to forecast daily unit sales.
+An end-to-end Python + SQL analytics project on real grocery sales data.
+The project builds a reproducible data warehouse in SQLite from a
+documented subset of the Corporación Favorita grocery dataset, answers
+business questions with SQL, engineers time-aware demand features, and
+trains an interpretable ridge regression model to forecast daily unit
+sales.
 
-The theme is retail operations rather than education, while the technical scope is aligned with data science and data analytics portfolios.
+The theme is retail operations rather than education, while the technical
+scope is aligned with data science and data analytics portfolios.
+
+## Data Source
+
+The data is real, not generated: Corporación Favorita Grocery Sales
+Forecasting (Kaggle competition, mirrored at
+`ruiyuanfan/corporacin-favorita-grocery-sales-forecasting`).
+
+The warehouse holds a documented subset -- 8 stores x 30 items,
+2016-01-01..2017-08-15 -- because the full competition file is
+125 million rows. The subset is derived by `src/load_favorita.py`,
+which recomputes the item selection from the raw file on every run:
+
+- 8 stores spanning types A-E and 5 cities / 4 states (Quito,
+  Guayaquil, Babahoyo, Latacunga).
+- 30 items: the top 5 sellers in each of 6 families (GROCERY I,
+  BEVERAGES, CLEANING, PRODUCE, DAIRY, BREAD/BAKERY) by total unit
+  sales in the window.
+- 113,906 raw sales rows, densified to 124,007 fact rows (10,101
+  zero-sales rows added on days the store was open but the item did
+  not sell; the 15 store x item pairs that never sold are absent).
+
+Cleaning applied by the loader (see `src/load_favorita.py` and
+`docs/data_dictionary.md` for the full rules): fractional unit sales
+(weighed goods, 14,537 rows) are rounded to whole units; 3 negative
+sales rows (returns) are truncated to 0; foot traffic comes from the
+transactions file, with 342 rows filled by the store median; oil
+prices are forward-filled over 186 days with no trading price;
+holidays are mapped to National / Regional / Local by scope.
+
+To reproduce the load you need `train.csv` (863 MB zip) in
+`data/favorita_source/` -- it is too large for git and is not
+committed. The five small reference files (`stores.csv`, `items.csv`,
+`oil.csv`, `holidays_events.csv`, `transactions.csv`) are committed.
+If `train.csv` is missing, the loader prints where to get it and
+skips, leaving the committed subset CSVs in `data/raw/` untouched.
+
+A synthetic dataset is still available as an option
+(`RETAIL_DATA_SOURCE=synthetic`, see Quick Start). It exists so the
+pipeline can be demoed without the 863 MB download; it is not the
+default and not what the results below describe.
 
 ## Project Highlights
 
-- Generates a realistic two-year retail dataset covering stores, products, inventory, campaigns, weather, traffic, prices, stockouts, and daily sales.
+- Loads a real grocery sales subset with explicit, verifiable cleaning rules.
 - Builds a SQLite analytical database with normalized dimensions, facts, indexes, and a feature mart.
-- Uses SQL for revenue growth, category margin, store efficiency, campaign lift, price sensitivity, event impact, and reorder analysis.
+- Uses SQL for units growth, category units, store efficiency, campaign lift, oil-price sensitivity, event impact, and a demand watchlist.
 - Implements a standard-library-only ridge regression pipeline with time-based validation, baseline comparison, and model diagnostics.
 - Exports CSV reports, JSON metrics, and SVG charts that can be viewed directly on GitHub.
 
@@ -17,7 +63,8 @@ The theme is retail operations rather than education, while the technical scope 
 ```text
 .
 |-- data/
-|   |-- raw/                 # Generated synthetic CSV data
+|   |-- favorita_source/     # Committed small reference files; train.csv (863 MB) is fetched separately, git-ignored
+|   |-- raw/                 # Favorita subset CSVs written by src/load_favorita.py
 |   `-- processed/           # Rebuildable SQLite database
 |-- docs/
 |   `-- data_dictionary.md
@@ -29,7 +76,8 @@ The theme is retail operations rather than education, while the technical scope 
 |   |-- 01_feature_store.sql
 |   `-- 02_business_questions.sql
 |-- src/
-|   |-- generate_data.py
+|   |-- load_favorita.py    # Favorita subset loader (standard library only)
+|   |-- generate_data.py    # Optional synthetic data (RETAIL_DATA_SOURCE=synthetic)
 |   |-- build_database.py
 |   |-- run_sql_analysis.py
 |   |-- model_demand.py
@@ -46,9 +94,12 @@ The theme is retail operations rather than education, while the technical scope 
 python src/run_pipeline.py
 ```
 
-The pipeline will:
+The pipeline will (default: Favorita data):
 
-1. Generate synthetic retail CSV files in `data/raw/`.
+1. Load the Favorita subset into `data/raw/` (re-derives it from
+   `data/favorita_source/train.csv`; takes about 9 minutes because
+   it scans the 125M-row file twice -- once to select the top items,
+   once to extract the subset -- and prints a verification block).
 2. Build `data/processed/retail_demand.sqlite`.
 3. Create the SQL feature mart.
 4. Export business-analysis result tables to `outputs/reports/`.
@@ -56,6 +107,12 @@ The pipeline will:
 6. Render charts to `outputs/figures/`.
 
 No third-party packages are required.
+
+To run with the synthetic dataset instead:
+
+```bash
+RETAIL_DATA_SOURCE=synthetic python src/run_pipeline.py
+```
 
 ## Running Tests
 
@@ -72,23 +129,48 @@ non-negative prediction clip.
 
 The SQL layer answers questions such as:
 
-- Which months show the strongest revenue growth?
-- Which product categories generate the highest gross margin?
-- Which stores convert foot traffic into revenue most efficiently?
-- Where are stockouts creating avoidable demand loss?
-- How much lift is associated with online campaigns?
-- Which store-SKU pairs should be considered for replenishment?
+- Which months show the strongest growth in units sold?
+- Which product categories sell the most units?
+- Which stores convert foot traffic into units most efficiently?
+- How much lift is associated with on-promotion days?
+- How do unit sales move with the oil price?
+- How do national, regional, and local holidays affect sales?
+- Which store-SKU pairs have the highest recent demand?
 
-See `sql/02_business_questions.sql` for the full query set.
+See `sql/02_business_questions.sql` for the full query set. Note there
+is no revenue, price, or inventory analysis: the source data has no
+prices or stock levels, so those questions cannot be answered honestly
+from this dataset.
 
 ## Modeling Approach
 
 The demand model uses a time-based split:
 
-- Training window: observations up to 2025-09-30
-- Test window: observations after 2025-09-30
+- Training window: mart rows up to 2017-06-30 (108,420 rows)
+- Test window: mart rows after 2017-06-30 (10,061 rows, 2017-07-01..08-15)
 
-Features include price, discount rate, inventory level, traffic, weather, campaign status, day-of-week, month, category, region, store format, 7-day lag demand, and 28-day rolling demand. The model is compared against a rolling-demand baseline using MAE, RMSE, WAPE, MAPE, and R2.
+Features (45 total): foot traffic, oil price, 7-day lag demand, and
+28-day rolling demand (numeric); state, store format, category,
+perishability, cluster, local event, promotion, day-of-week, and month
+(categorical). The model is compared against a rolling-demand baseline
+using MAE, RMSE, WAPE, MAPE, and R2.
+
+Results on the real data (test window):
+
+| Model | MAE | R2 |
+|---|---:|---:|
+| Hand-written ridge | 17.0015 | 0.6939 |
+| Rolling-28 baseline | 17.8535 | 0.6749 |
+
+The ridge beats the baseline, but only narrowly: real demand is much
+noisier than the synthetic data this project used before (test MAE
+3.5215, R2 0.8275 on synthetic data). The gap is expected -- real
+sales include promotion spikes, holiday effects, and items that sell
+hundreds of units a day (mean ~49 units per store x item x day, with
+PRODUCE items reaching 700+), while the synthetic data was smooth by
+construction. MAE is not directly comparable across the two datasets
+because the sales scale differs; WAPE (0.3767 real vs 0.1811
+synthetic) and R2 are the honest comparison.
 
 Generated model outputs:
 
@@ -107,24 +189,55 @@ pip install scikit-learn
 python src/compare_sklearn.py
 ```
 
-It reuses the same time-based split, the same 52 features and the same
+It reuses the same time-based split, the same 45 features and the same
 metric definitions, and compares four models on the test window: the
 hand-written ridge regression, sklearn's `Ridge` (same alpha 3.5), a
 random-forest regressor, and the rolling-28 baseline. Results are written to
 `outputs/reports/sklearn_comparison.json` and printed as a table.
 
-On the current synthetic data the hand-written ridge matches sklearn's Ridge
-exactly (test MAE 3.5215, R2 0.8275), while the random forest is a little
-better (test MAE 3.3459, R2 0.8416) at the cost of interpretability.
+On the current Favorita data the hand-written ridge matches sklearn's Ridge
+exactly (test MAE 17.0015, R2 0.6939), while the random forest is better
+(test MAE 14.55, R2 0.7419) at the cost of interpretability.
+
+## Limitations
+
+Honest limits of this project, in the order that matters for review:
+
+- **No prices, revenue, or inventory.** The source never published
+  them, so there is no margin, price-sensitivity, or reorder analysis
+  -- only units. The old synthetic columns for these were removed
+  rather than invented.
+- **A subset, not the full dataset.** 8 of 54 stores and 30 of 4,100
+  items, chosen as the top sellers in 6 families. Findings describe
+  these high-volume items, not the whole chain.
+- **Zero sales are inferred, not observed.** The source only records
+  days something sold; a missing day is treated as 0, but only on
+  days the store was open (per the transactions file). A day the
+  store was closed has no row at all.
+- **Fractional sales are rounded.** Weighed goods are recorded in
+  fractions of a unit (14,537 rows); they are rounded to whole units,
+  halves up.
+- **Oil price is one national series.** It is the same WTI price for
+  every store, forward-filled over weekends and holidays (186 days
+  in the window). It is a weak proxy for local cost pressure.
+- **Holiday mapping is rule-based.** National / Regional / Local is
+  inferred from the holidays file's locale fields, not from store
+  records; a mislabeled locale would mislabel the event.
+- **Foot traffic is a proxy.** It is the daily transaction count from
+  `transactions.csv`, not a people count; 342 rows use the store
+  median because those dates have no transactions row.
+- **Metrics are worse than on synthetic data, and that is expected.**
+  Real demand is spiky and the model is a simple linear one; the
+  random-forest comparison shows how much headroom a non-linear
+  model has.
 
 ## Portfolio Framing
 
 This project demonstrates practical data science skills across the full analytics workflow:
 
-- Data generation and data quality controls
+- Loading and cleaning real, messy data with verifiable rules
 - Relational modeling and SQL analytics
 - Feature engineering for time-aware forecasting
 - Model evaluation against a simple baseline
 - Reproducible reporting and visualization
 - Clean project structure suitable for GitHub review
-

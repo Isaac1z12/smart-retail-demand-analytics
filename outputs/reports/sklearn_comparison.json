@@ -1,5 +1,5 @@
 {
-  "feature_count": 52,
+  "feature_count": 45,
   "random_forest": {
     "max_features": "sqrt",
     "n_estimators": 100,
@@ -8,35 +8,35 @@
   "ridge_alpha": 3.5,
   "test_metrics": {
     "handwritten_ridge": {
-      "mae": 3.5215,
-      "mape": 0.2415,
-      "r2": 0.8275,
-      "rmse": 4.5749,
-      "wape": 0.1811
+      "mae": 17.0015,
+      "mape": 1.1425,
+      "r2": 0.6939,
+      "rmse": 52.8285,
+      "wape": 0.3767
     },
     "rolling_28_baseline": {
-      "mae": 4.2003,
-      "mape": 0.2694,
-      "r2": 0.7279,
-      "rmse": 5.746,
-      "wape": 0.216
+      "mae": 17.8535,
+      "mape": 0.9214,
+      "r2": 0.6749,
+      "rmse": 54.4485,
+      "wape": 0.3956
     },
     "sklearn_random_forest": {
-      "mae": 3.3459,
-      "mape": 0.2304,
-      "r2": 0.8416,
-      "rmse": 4.3849,
-      "wape": 0.172
+      "mae": 14.55,
+      "mape": 0.8561,
+      "r2": 0.7419,
+      "rmse": 48.5106,
+      "wape": 0.3224
     },
     "sklearn_ridge": {
-      "mae": 3.5215,
-      "mape": 0.2415,
-      "r2": 0.8275,
-      "rmse": 4.5749,
-      "wape": 0.1811
+      "mae": 17.0015,
+      "mape": 1.1425,
+      "r2": 0.6939,
+      "rmse": 52.8285,
+      "wape": 0.3767
     }
   },
-  "test_rows": 13248,
-  "train_end_date": "2025-09-30",
-  "training_rows": 87552
+  "test_rows": 10061,
+  "train_end_date": "2017-06-30",
+  "training_rows": 108420
 }

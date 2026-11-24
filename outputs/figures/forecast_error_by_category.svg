@@ -11,33 +11,27 @@ text { font-family: Arial, sans-serif; fill: #111827; }
 <text class="title" x="84" y="34">Mean Absolute Error by Category</text>
 <text class="label" x="84" y="54">MAE in units</text>
 <line class="grid" x1="84" y1="70.00" x2="924" y2="70.00"/>
-<text class="label" x="74" y="74.00" text-anchor="end">5.5</text>
+<text class="label" x="74" y="74.00" text-anchor="end">37.8</text>
 <line class="grid" x1="84" y1="153.00" x2="924" y2="153.00"/>
-<text class="label" x="74" y="157.00" text-anchor="end">4.1</text>
+<text class="label" x="74" y="157.00" text-anchor="end">28.3</text>
 <line class="grid" x1="84" y1="236.00" x2="924" y2="236.00"/>
-<text class="label" x="74" y="240.00" text-anchor="end">2.7</text>
+<text class="label" x="74" y="240.00" text-anchor="end">18.9</text>
 <line class="grid" x1="84" y1="319.00" x2="924" y2="319.00"/>
-<text class="label" x="74" y="323.00" text-anchor="end">1.4</text>
+<text class="label" x="74" y="323.00" text-anchor="end">9.4</text>
 <line class="grid" x1="84" y1="402.00" x2="924" y2="402.00"/>
 <text class="label" x="74" y="406.00" text-anchor="end">0.0</text>
-<rect x="84.00" y="174.78" width="80.89" height="227.22" fill="#2563eb" rx="3"/>
-<text class="label" x="124.44" y="474" text-anchor="end" transform="rotate(-35 124.44 474)">Bakery</text>
-<rect x="178.89" y="167.09" width="80.89" height="234.91" fill="#16a34a" rx="3"/>
-<text class="label" x="219.33" y="474" text-anchor="end" transform="rotate(-35 219.33 474)">Beverages</text>
-<rect x="273.78" y="178.74" width="80.89" height="223.26" fill="#dc2626" rx="3"/>
-<text class="label" x="314.22" y="474" text-anchor="end" transform="rotate(-35 314.22 474)">Dairy</text>
-<rect x="368.67" y="237.20" width="80.89" height="164.80" fill="#9333ea" rx="3"/>
-<text class="label" x="409.11" y="474" text-anchor="end" transform="rotate(-35 409.11 474)">Frozen</text>
-<rect x="463.56" y="232.65" width="80.89" height="169.35" fill="#ea580c" rx="3"/>
-<text class="label" x="504.00" y="474" text-anchor="end" transform="rotate(-35 504.00 474)">Household</text>
-<rect x="558.44" y="202.18" width="80.89" height="199.82" fill="#0891b2" rx="3"/>
-<text class="label" x="598.89" y="474" text-anchor="end" transform="rotate(-35 598.89 474)">Pantry</text>
-<rect x="653.33" y="257.42" width="80.89" height="144.58" fill="#2563eb" rx="3"/>
-<text class="label" x="693.78" y="474" text-anchor="end" transform="rotate(-35 693.78 474)">Personal Care</text>
-<rect x="748.22" y="172.99" width="80.89" height="229.01" fill="#16a34a" rx="3"/>
-<text class="label" x="788.67" y="474" text-anchor="end" transform="rotate(-35 788.67 474)">Produce</text>
-<rect x="843.11" y="105.57" width="80.89" height="296.43" fill="#dc2626" rx="3"/>
-<text class="label" x="883.56" y="474" text-anchor="end" transform="rotate(-35 883.56 474)">Snacks</text>
+<rect x="84.00" y="212.39" width="128.33" height="189.61" fill="#2563eb" rx="3"/>
+<text class="label" x="148.17" y="474" text-anchor="end" transform="rotate(-35 148.17 474)">BEVERAGES</text>
+<rect x="226.33" y="314.54" width="128.33" height="87.46" fill="#16a34a" rx="3"/>
+<text class="label" x="290.50" y="474" text-anchor="end" transform="rotate(-35 290.50 474)">BREAD/BAKERY</text>
+<rect x="368.67" y="207.90" width="128.33" height="194.10" fill="#dc2626" rx="3"/>
+<text class="label" x="432.83" y="474" text-anchor="end" transform="rotate(-35 432.83 474)">CLEANING</text>
+<rect x="511.00" y="324.58" width="128.33" height="77.42" fill="#9333ea" rx="3"/>
+<text class="label" x="575.17" y="474" text-anchor="end" transform="rotate(-35 575.17 474)">DAIRY</text>
+<rect x="653.33" y="317.97" width="128.33" height="84.03" fill="#ea580c" rx="3"/>
+<text class="label" x="717.50" y="474" text-anchor="end" transform="rotate(-35 717.50 474)">GROCERY I</text>
+<rect x="795.67" y="105.57" width="128.33" height="296.43" fill="#0891b2" rx="3"/>
+<text class="label" x="859.83" y="474" text-anchor="end" transform="rotate(-35 859.83 474)">PRODUCE</text>
 <line class="axis" x1="84" y1="402" x2="924" y2="402"/>
 <line class="axis" x1="84" y1="70" x2="84" y2="402"/>
 </svg>

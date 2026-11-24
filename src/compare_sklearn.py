@@ -10,9 +10,9 @@ It reuses the core pipeline's data loading, time-based split, feature
 engineering and metric functions, so every model is scored on the same
 features and the same test window:
 
-- Training window: observations up to 2025-09-30
-- Test window: observations after 2025-09-30
-- Features: the same 52 columns the hand-written model uses
+- Training window: observations up to ``model_demand.TRAIN_END_DATE``
+- Test window: observations after that date
+- Features: the same columns the hand-written model uses
 - Metrics: MAE, RMSE, WAPE, MAPE and R2 from ``model_demand.compute_metrics``
 
 Models compared:

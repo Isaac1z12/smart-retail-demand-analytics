@@ -1,0 +1,9 @@
+store_id,city,state,store_format,units,foot_traffic,units_per_visit
+51,Guayaquil,Guayas,A,1348631,28862761,0.0467
+44,Quito,Pichincha,A,2580462,76078335,0.0339
+28,Guayaquil,Guayas,E,422704,19196605,0.022
+18,Quito,Pichincha,B,330632,16287637,0.0203
+12,Latacunga,Cotopaxi,C,332140,16494187,0.0201
+1,Quito,Pichincha,D,523398,26278574,0.0199
+31,Babahoyo,Los Rios,B,393019,21704765,0.0181
+30,Guayaquil,Guayas,C,151946,9751431,0.0156

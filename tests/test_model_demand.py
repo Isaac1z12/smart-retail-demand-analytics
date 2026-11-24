@@ -25,15 +25,15 @@ from model_demand import (  # noqa: E402
 class TestSplitRows(unittest.TestCase):
     def test_train_test_boundary(self):
         rows = [
-            {"date": "2025-09-29"},
-            {"date": "2025-09-30"},
-            {"date": "2025-10-01"},
-            {"date": "2025-10-02"},
+            {"date": "2017-06-29"},
+            {"date": "2017-06-30"},
+            {"date": "2017-07-01"},
+            {"date": "2017-07-02"},
         ]
         train, test = split_rows(rows)
-        self.assertEqual(TRAIN_END_DATE, "2025-09-30")
-        self.assertEqual([row["date"] for row in train], ["2025-09-29", "2025-09-30"])
-        self.assertEqual([row["date"] for row in test], ["2025-10-01", "2025-10-02"])
+        self.assertEqual(TRAIN_END_DATE, "2017-06-30")
+        self.assertEqual([row["date"] for row in train], ["2017-06-29", "2017-06-30"])
+        self.assertEqual([row["date"] for row in test], ["2017-07-01", "2017-07-02"])
 
 
 class TestComputeMetrics(unittest.TestCase):

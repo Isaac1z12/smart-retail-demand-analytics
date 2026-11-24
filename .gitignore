@@ -9,6 +9,11 @@ env/
 data/processed/*.sqlite
 data/processed/*.sqlite-*
 
+# Favorita raw sales file (863 MB): too large for git, fetched separately.
+# The five small reference files in data/favorita_source/ ARE committed.
+data/favorita_source/train.csv
+data/favorita_source/*.zip
+
 # Local editor files
 .idea/
 .vscode/

@@ -8,28 +8,22 @@ from config import DB_PATH, FIGURES_DIR, REPORTS_DIR, ensure_directories
 from svg_charts import write_bar_chart, write_line_chart
 
 
-TRAIN_END_DATE = "2025-09-30"
+TRAIN_END_DATE = "2017-06-30"
 RIDGE_ALPHA = 3.5
 
 NUMERIC_FEATURES = [
-    "discount_rate",
-    "unit_price",
-    "on_hand_units",
     "foot_traffic",
-    "temperature_c",
-    "precipitation_mm",
-    "competitor_price_index",
-    "floor_area_sqft",
+    "oil_price",
     "units_lag_7",
     "units_rolling_28",
-    "rolling_stockout_rate",
 ]
 
 CATEGORICAL_FEATURES = [
-    "region",
+    "state",
     "store_format",
     "category",
-    "brand_tier",
+    "perishable",
+    "cluster",
     "local_event",
     "online_campaign",
     "day_of_week",
@@ -43,27 +37,22 @@ def fetch_feature_rows():
             date,
             store_id,
             sku_id,
-            region,
+            state,
             store_format,
-            floor_area_sqft,
+            cluster,
             category,
-            brand_tier,
+            perishable,
+            class,
+            base_daily_units,
             units_sold,
-            discount_rate,
-            unit_price,
-            stockout_flag,
-            on_hand_units,
             foot_traffic,
-            temperature_c,
-            precipitation_mm,
+            oil_price,
             local_event,
             online_campaign,
-            competitor_price_index,
             day_of_week,
             month,
             units_lag_7,
-            units_rolling_28,
-            rolling_stockout_rate
+            units_rolling_28
         FROM mart_demand_features
         ORDER BY date, store_id, sku_id
     """
